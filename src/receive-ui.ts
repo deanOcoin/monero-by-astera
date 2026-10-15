@@ -1,0 +1,10 @@
+import { type Address, escape as esc } from './types';
+
+export function receivePickerRows(addresses: Address[], selected: number, query: string) {
+  const needle = query.trim().toLowerCase();
+  const rows = addresses.filter(a => `${a.index} ${a.address} ${a.label}`.toLowerCase().includes(needle));
+  return rows.length ? rows.map(a => `<tr data-pick-address="${a.index}" ${a.index === selected ? 'class="selected" data-compact-start' : ''}><td class="receive-grid-index">#${a.index}</td><td><button type="button" class="receive-pick-address" data-receive="${a.index}" aria-label="Receive at address ${a.index}" aria-pressed="${a.index === selected}" data-help-custom="Use this subaddress for receiving. It belongs to the current account in your wallet."><code>${esc(a.address)}</code></button></td><td><button type="button" class="receive-label text-button ${a.label ? '' : 'unlabeled'}" data-edit="${a.index}" aria-label="${a.label ? 'Edit' : 'Add'} label for address ${a.index}" data-help-custom="Labels are optional notes stored in your encrypted wallet. Adding, changing or clearing a label does not change the address.">${esc(a.label || 'Add label')}</button></td></tr>`).join('') : '<tr><td colspan="3" class="no-results">No matching addresses.</td></tr>';
+}
+export function receivePicker(addresses: Address[], selected: number, query: string) {
+  return `<div class="receive-picker-tools"><label class="search-box"><input id="receive-picker-search" value="${esc(query)}" placeholder="Search index, address or label" aria-label="Search receiving addresses" data-help-custom="Find an address by its index, full or partial address, or optional label."/></label><button type="button" class="button primary" data-action="new-address" aria-label="New address" data-help-custom="Create a new subaddress immediately. No label is required; you can add one later.">+ New address</button></div><table class="receive-picker-grid"><thead><tr><th>Index</th><th>Monero address</th><th>Label <small>optional</small></th></tr></thead><tbody id="receive-address-rows">${receivePickerRows(addresses, selected, query)}</tbody></table>`;
+}
