@@ -1,0 +1,28 @@
+{
+  "name": "monero-by-astera",
+  "version": "0.2.8",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "tsc && vite build",
+    "tauri": "tauri",
+    "test": "node --test tests/unit/*.test.mjs",
+    "test:core": "cargo test --manifest-path src-tauri/Cargo.toml",
+    "test:integration": "cargo test --manifest-path src-tauri/Cargo.toml --test engine -- --ignored --nocapture",
+    "desktop": "tauri build --bundles app",
+    "test:ui": "playwright test"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^2.8.0",
+    "qrcode": "^1.5.4",
+    "lucide": "^0.468.0"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.8.0",
+    "@types/qrcode": "^1.5.5",
+    "typescript": "^5.9.2",
+    "vite": "^7.1.0",
+    "@playwright/test": "^1.55.0"
+  }
+}

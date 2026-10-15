@@ -1,0 +1,60 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Monero by Astera",
+  "version": "0.2.8",
+  "identifier": "local.astra.xmr",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "Monero by Astera",
+        "label": "main",
+        "width": 1180,
+        "height": 820,
+        "minWidth": 920,
+        "minHeight": 700,
+        "backgroundColor": "#0d0e10",
+        "devtools": false,
+        "contentProtected": true,
+        "create": false
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src ipc: http://ipc.localhost; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": [
+      "app"
+    ],
+    "resources": {
+      "../docs/fonts/Manrope-OFL.txt": "licenses/Manrope-OFL.txt",
+      "../docs/fonts/Outfit-OFL.txt": "licenses/Outfit-OFL.txt",
+      "resources/monero-wallet-rpc": "resources/monero-wallet-rpc",
+      "../docs/MONERO-LICENSE.txt": "licenses/MONERO-LICENSE.txt",
+      "../THIRD-PARTY-NOTICES.md": "licenses/THIRD-PARTY-NOTICES.md",
+      "resources/monero-wallet-cli": "resources/monero-wallet-cli",
+      "vendor/polyseed/LICENSE": "licenses/POLYSEED-LICENSE.txt",
+      "vendor/polyseed/NOTICE": "licenses/POLYSEED-NOTICE.txt",
+      "../docs/RCGEN-LICENSE.txt": "licenses/RCGEN-LICENSE.txt"
+    },
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns"
+    ],
+    "macOS": {
+      "minimumSystemVersion": "12.0",
+      "signingIdentity": "-"
+    },
+    "shortDescription": "A private, local Monero wallet",
+    "category": "Finance"
+  }
+}

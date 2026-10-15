@@ -1,0 +1,26 @@
+[
+  {
+    "path": "src/assets/fonts/Manrope-Variable.ttf",
+    "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/manrope/Manrope%5Bwght%5D.ttf",
+    "sha256": "d0639be45d0af36e798172419d7bd173c4bd4f29e2b76cbb69db1d11bf8b0a40",
+    "bytes": 165420
+  },
+  {
+    "path": "docs/fonts/Manrope-OFL.txt",
+    "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/manrope/OFL.txt",
+    "sha256": "e01b637272e0cbdfb240184dd98ea5cc671556d9894dae2668d92ab2c906787c",
+    "bytes": 4384
+  },
+  {
+    "path": "src/assets/fonts/Outfit-Variable.ttf",
+    "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/outfit/Outfit%5Bwght%5D.ttf",
+    "sha256": "fc7287273e66929776e2ba54f144fe699080bec29f61bf649d70d871468aeade",
+    "bytes": 110884
+  },
+  {
+    "path": "docs/fonts/Outfit-OFL.txt",
+    "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/outfit/OFL.txt",
+    "sha256": "c676351bf8576b9aba743cd5eaa8c0e7ee0d51f805d720447b4df4ddb6a2e416",
+    "bytes": 4389
+  }
+]

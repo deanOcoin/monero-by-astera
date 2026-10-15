@@ -1,0 +1,13 @@
+node_modules/
+dist/
+work/
+src-tauri/target/
+src-tauri/resources/monero-wallet-rpc
+src-tauri/resources/monero-wallet-cli
+src-tauri/gen/schemas/linux-schema.json
+.DS_Store
+*.log
+test-results/
+playwright-report/
+Monero by Astera.app/
+.claude/

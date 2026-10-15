@@ -1,0 +1,1 @@
+{"main":{"identifier":"main","description":"Only local wallet commands; no shell, filesystem or network plugins.","local":true,"windows":["main"],"permissions":["core:event:allow-listen","core:event:allow-unlisten"]}}
