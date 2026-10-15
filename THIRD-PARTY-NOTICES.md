@@ -1,0 +1,11 @@
+# Third-party software
+
+The bundled `monero-wallet-rpc` executable is from the official Monero 0.18.5.1 Apple Silicon archive. Copyright belongs to the Monero project and contributors. Its BSD 3-Clause license is reproduced in `docs/MONERO-LICENSE.txt`; the complete upstream source and bundled dependency notices are available at https://github.com/monero-project/monero/tree/v0.18.5.1.
+
+The application uses Tauri (MIT/Apache-2.0), Rust crates resolved in `src-tauri/Cargo.lock`, TypeScript, Vite, the Tauri JavaScript API, QRCode (MIT) and Lucide (ISC). Development-only tests use Playwright (Apache-2.0). These components retain their respective copyrights and licenses. Installed package licenses are present under `node_modules` and Cargo's registry source cache. Lockfiles record the exact versions used.
+
+Version 0.2 also bundles the official `monero-wallet-cli` from the same verified Monero 0.18.5.1 archive under Monero's license. The unmodified Polyseed C source is vendored from https://github.com/tevador/polyseed at the commit recorded in `src-tauri/vendor/polyseed/UPSTREAM_COMMIT`, under Apache-2.0; its LICENSE and NOTICE are preserved there and included in the app bundle. The additional Rust libraries include rust-monero (MIT), curve25519-dalek (BSD-3-Clause), RustCrypto PBKDF2/SHA-3 and unicode-normalization under their published licenses. Exact resolved versions are in Cargo.lock. These libraries retain their original copyrights.
+
+The interface bundles unmodified Manrope and Outfit variable fonts from the Google Fonts repository under the SIL Open Font License 1.1. Manrope is copyright 2018 The Manrope Project Authors (https://github.com/sharanda/manrope); Outfit is copyright 2021 The Outfit Project Authors (https://github.com/Outfitio/Outfit-Fonts). Full licenses are in `docs/fonts/` and the installed app’s `licenses/` folder. Source URLs and SHA-256 fingerprints are recorded in `docs/fonts/sources.json`. The application loads these fonts locally and makes no font-provider requests.
+
+Version 0.2.4 uses rcgen 0.14.10 (MIT/Apache-2.0) and its ring cryptographic provider to generate fresh P-384 transport certificates locally. These credentials are separate from wallet keys and do not replace validation of the node's server certificate. Exact versions and checksums of its ASN.1/PEM dependencies are in Cargo.lock.

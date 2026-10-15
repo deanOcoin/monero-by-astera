@@ -1,0 +1,32 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  macos:
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+      - run: brew install gnupg
+      - run: npm ci
+      - run: npm test
+      - run: npx tsc && npx vite build
+      - name: Fetch and verify the Monero engine
+        run: bash scripts/fetch-monero.sh
+      - run: cargo test --manifest-path src-tauri/Cargo.toml --lib
+      - run: cargo clippy --manifest-path src-tauri/Cargo.toml --all-targets -- -D warnings
+      - name: UI tests
+        run: npm run test:ui
+      - name: Bundle the app
+        run: npm run desktop
