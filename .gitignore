@@ -10,4 +10,3 @@ src-tauri/gen/schemas/linux-schema.json
 test-results/
 playwright-report/
 Monero by Astera.app/
-.claude/
