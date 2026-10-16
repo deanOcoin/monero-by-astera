@@ -1,0 +1,54 @@
+name: Release
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  app:
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@v4
+      - id: version
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          v="v$(node -p "require('./package.json').version")"
+          echo "tag=$v" >> "$GITHUB_OUTPUT"
+          if gh release view "$v" >/dev/null 2>&1; then echo "exists=true" >> "$GITHUB_OUTPUT"; fi
+      - if: steps.version.outputs.exists != 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - if: steps.version.outputs.exists != 'true'
+        uses: dtolnay/rust-toolchain@stable
+      - if: steps.version.outputs.exists != 'true'
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+      - if: steps.version.outputs.exists != 'true'
+        run: brew install gnupg && npm ci
+      - if: steps.version.outputs.exists != 'true'
+        name: Fetch and verify the Monero engine
+        run: bash scripts/fetch-monero.sh
+      - if: steps.version.outputs.exists != 'true'
+        run: npm test && cargo test --manifest-path src-tauri/Cargo.toml --lib
+      - if: steps.version.outputs.exists != 'true'
+        run: npm run desktop
+      - if: steps.version.outputs.exists != 'true'
+        name: Package
+        run: |
+          v="${{ steps.version.outputs.tag }}"
+          app="src-tauri/target/release/bundle/macos/Monero by Astera.app"
+          codesign --verify --deep --strict "$app"
+          shasum -a 256 "$app/Contents/Resources/resources/monero-wallet-rpc" | grep -q "$(cat src-tauri/resources/engine.sha256)"
+          ditto -c -k --keepParent "$app" "Monero-by-Astera-${v#v}-macos-arm64.zip"
+          shasum -a 256 Monero-by-Astera-*.zip > SHA256SUMS.txt
+      - if: steps.version.outputs.exists != 'true'
+        name: Publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          v="${{ steps.version.outputs.tag }}"
+          gh release create "$v" --target "$GITHUB_SHA" --title "Monero by Astera ${v#v}" --notes-file .github/release-notes.md Monero-by-Astera-*.zip SHA256SUMS.txt
